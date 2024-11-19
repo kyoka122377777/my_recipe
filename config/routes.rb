@@ -12,11 +12,12 @@ Rails.application.routes.draw do
   resource :account, only: [:show, :edit, :update], controller: 'users'
 
   # レシピ関連のルーティング
-  resources :recipes do
-    collection do
-      get :search  # ここで search アクションを定義
-    end
-  end
+  # resources :recipes do
+  #   collection do
+  #     get :search  # ここで search アクションを定義
+  #   end
+  # end
+  resources :recipes, only: [:new, :create, :show]
 
   # その他のルーティング
   get 'home/index', to: 'home#index', as: :home

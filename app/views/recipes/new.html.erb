@@ -1,0 +1,33 @@
+<%= form_with model: @recipe, local: true do |f| %>
+  <div>
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :description, "説明" %>
+    <%= f.text_area :description, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :images, "画像" %>
+    <%= f.file_field :images, multiple: true, accept: "image/*" %>
+  </div>
+
+  <div>
+    <%= f.fields_for :quantities do |qf| %>
+      <div>
+        <%= qf.label :ingredient_name, "材料名" %>
+        <%= qf.text_field :ingredient_name, required: true %>
+      </div>
+      <div>
+        <%= qf.label :amount, "量" %>
+        <%= qf.text_field :amount, required: true %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.submit "保存" %>
+  </div>
+<% end %>

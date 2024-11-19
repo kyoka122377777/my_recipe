@@ -1,0 +1,16 @@
+<h1><%= @recipe.title %></h1>
+
+<p><%= @recipe.description %></p>
+
+<% if @recipe.images.attached? %>
+  <h3>レシピ画像</h3>
+  <div>
+    <% @recipe.images.each do |image| %>
+      <%= image_tag image, alt: "レシピ画像", class: "recipe-image" %>
+    <% end %>
+  </div>
+<% else %>
+  <p>画像はありません。</p>
+<% end %>
+
+<%= link_to 'レシピ一覧に戻る', home_path %>
