@@ -65,3 +65,4 @@ gem 'oauth2', '~> 2.0'
 ##.env ファイルを扱うために
 gem 'dotenv-rails', groups: [:development, :test]
 
+gem 'aws-sdk-s3', require: false
