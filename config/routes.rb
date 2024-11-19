@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   # ユーザーセッションのルーティング
   get '/login', to: 'sessions#new', as: :login
-  post '/sessions', to: 'sessions#create', as: :sessions
+  post '/login', to: 'sessions#create', as: :create_session
   delete '/logout', to: 'sessions#destroy', as: :logout
 
   # ユーザー関連のルーティング
