@@ -1,0 +1,7 @@
+<h1>メニュー</h1>
+
+<ul>
+  <li><%= link_to 'アカウント管理', edit_account_path %></li>
+  <li><%= link_to 'お気に入り一覧', '#', class: 'disabled' %> <!-- 将来的に追加予定 --> </li>
+  <li><%= link_to 'ログアウト', logout_path, method: :delete, data: { confirm: 'ログアウトしますか？' } %></li>
+</ul>

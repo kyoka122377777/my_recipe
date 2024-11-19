@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   # ユーザー関連のルーティング
   resources :users, only: [:new, :create, :show, :edit, :update]
+  get '/menu', to: 'menu#index', as: :menu
   resource :account, only: [:show, :edit, :update], controller: 'users'
 
   # レシピ関連のルーティング
@@ -18,6 +19,9 @@ Rails.application.routes.draw do
   #   end
   # end
   resources :recipes, only: [:new, :create, :show]
+  # メニューバーに対する設置
+
+
 
   # その他のルーティング
   get 'home/index', to: 'home#index', as: :home

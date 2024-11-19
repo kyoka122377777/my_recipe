@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Myapp" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>My Recipes</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= yield :head %>
-
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
 
   <body>
-    <%= yield %>
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
+      <div style="display: flex; align-items: center;">
+        <%= link_to (current_user ? home_path : root_path) do %>
+          <%= image_tag 'diary.png', alt: 'Diary', style: 'height: 40px; margin-right: 10px;' %>
+        <% end %>
+        <h1 style="font-size: 20px; margin: 0;">my-recipe</h1>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <% if current_user %>
+          <%= link_to '<span class="material-icons">add</span>'.html_safe, new_recipe_path, style: 'text-decoration: none; color: black;' %>
+          <%= link_to '<span class="material-icons">menu</span>'.html_safe, menu_path, style: 'text-decoration: none; color: black;' if current_user %>
+
+        <% end %>
+      </div>
+
+
+    </header>
+
+    <main style="padding: 20px;">
+      <%= yield %>
+    </main>
   </body>
 </html>
