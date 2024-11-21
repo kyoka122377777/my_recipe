@@ -1,33 +1,44 @@
-<%= form_with model: @recipe, local: true do |f| %>
-  <div>
-    <%= f.label :title, "タイトル" %>
-    <%= f.text_field :title, required: true %>
+<%= form_with(model: @recipe, local: true, enctype: "multipart/form-data") do |form| %>
+  <% if @recipe.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+      <ul>
+        <% @recipe.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, "タイトル" %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :description, "説明" %>
-    <%= f.text_area :description, required: true %>
+  <div class="mb-3">
+    <%= form.label :description, "作り方" %>
+    <%= form.text_area :description, class: "form-control", rows: 5 %>
   </div>
 
-  <div>
-    <%= f.label :images, "画像" %>
-    <%= f.file_field :images, multiple: true, accept: "image/*" %>
-  </div>
-
-  <div>
-    <%= f.fields_for :quantities do |qf| %>
+  <div id="quantities">
+    <% @recipe.quantities.each_with_index do |quantity, index| %>
       <div>
-        <%= qf.label :ingredient_name, "材料名" %>
-        <%= qf.text_field :ingredient_name, required: true %>
+        <%= form.label "quantities[#{index}][ingredient_name]", "材料名" %>
+        <%= form.text_field "quantities[#{index}][ingredient_name]", value: quantity.ingredient_name %>
       </div>
       <div>
-        <%= qf.label :amount, "量" %>
-        <%= qf.text_field :amount, required: true %>
+        <%= form.label "quantities[#{index}][amount]", "量" %>
+        <%= form.text_field "quantities[#{index}][amount]", value: quantity.amount %>
       </div>
     <% end %>
   </div>
 
+  <div class="mb-3">
+    <%= form.label :images, "レシピ画像" %>
+    <%= form.file_field :images, multiple: true, accept: 'image/*', class: "form-control" %>
+  </div>
+
   <div>
-    <%= f.submit "保存" %>
+    <%= form.submit "投稿", class: "btn btn-primary" %>
   </div>
 <% end %>

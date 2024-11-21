@@ -5,22 +5,18 @@ Rails.application.routes.draw do
   # ユーザーセッションのルーティング
   get '/login', to: 'sessions#new', as: :login
   post '/login', to: 'sessions#create', as: :create_session
-  delete '/logout', to: 'sessions#destroy', as: :logout
+  delete '/logout', to: 'users#destroy', as: :logout
 
-  # ユーザー関連のルーティング
+
   resources :users, only: [:new, :create, :show, :edit, :update]
   get '/menu', to: 'menu#index', as: :menu
   resource :account, only: [:show, :edit, :update], controller: 'users'
-
-  # レシピ関連のルーティング
-  # resources :recipes do
-  #   collection do
-  #     get :search  # ここで search アクションを定義
-  #   end
-  # end
-  resources :recipes, only: [:new, :create, :show]
-  # メニューバーに対する設置
-
+  resources :recipes, only: [:new, :create, :show, :index] do
+    collection do
+      get :search
+    end
+  end
+  
 
 
   # その他のルーティング

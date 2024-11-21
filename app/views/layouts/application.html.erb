@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Recipes</title>
+    <title>my-recipe</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
@@ -10,7 +10,7 @@
   </head>
 
   <body>
-    <header style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background-color: #EEFFFF; border-bottom: 1px solid #ddd;">
       <div style="display: flex; align-items: center;">
         <%= link_to (current_user ? home_path : root_path) do %>
           <%= image_tag 'diary.png', alt: 'Diary', style: 'height: 40px; margin-right: 10px;' %>
@@ -28,6 +28,14 @@
 
 
     </header>
+    <!-- Turboの影響を考慮して変更フラッシュメッセージの表示 -->
+    <%= turbo_frame_tag "flash" do %>
+      <div class="flash-messages">
+        <% flash.each do |type, message| %>
+          <div class="flash alert alert-<%= type %>"><%= message %></div>
+        <% end %>
+      </div>
+    <% end %>
 
     <main style="padding: 20px;">
       <%= yield %>

@@ -24,13 +24,28 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  # def update
+  #   if current_user.update(user_params)
+  #     redirect_to account_path, notice: "プロフィールが更新されました"
+  #   else
+  #     flash.now[:alert] = "更新に失敗しました"
+  #     render :edit
+  #   end
+  # end
+
   def update
-    if current_user.update(user_params)
+    @user = current_user
+    if @user.update(user_params)
       redirect_to account_path, notice: "プロフィールが更新されました"
     else
       flash.now[:alert] = "更新に失敗しました"
       render :edit
     end
+  end
+
+  def destroy
+    session[:user_id] = nil  # セッションの削除（ログアウト）
+    redirect_to root_path, notice: "ログアウトしました"
   end
 
   private

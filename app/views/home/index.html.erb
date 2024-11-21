@@ -1,6 +1,14 @@
-<h1>ようこそ、<%= current_user.username %>さん！</h1>
+<div class="container">
+  <h2>my-recipe 一覧</h2>
 
-<h2>あなたのレシピ一覧</h2>
+
+  <%= form_with url: recipes_path, method: :get, local: true do |form| %>
+    <div class="mb-3">
+      <%= form.label :search, "検索", class: 'form-label' %>
+      <%= form.text_field :search, class: 'form-control', placeholder: 'キーワードを入力...' %>
+    </div>
+    <%= form.submit "検索", class: "btn btn-primary" %>
+  <% end %>
 
 <% if @recipes.any? %>
   <ul>
@@ -11,7 +19,7 @@
     <% end %>
   </ul>
 <% else %>
-  <p>まだレシピはありません。</p>
+  <p>まだレシピがありません</p>
 <% end %>
 
 <%= link_to 'レシピを作成する', new_recipe_path, class: 'btn btn-primary' %>
